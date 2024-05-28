@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import MovieItem from "./MovieItem/MovieItem";
 
 export default function MovieList({ movies }) {

@@ -29,7 +29,6 @@ export async function fetchImages(params) {
 }
 
 export async function fetchMovieReviews(movieId) {
-  console.log(movieId);
   const response = await axios.get(
     `${BASE_URL}movie/${movieId}/reviews`,
     options
@@ -44,5 +43,14 @@ export async function fetchMovieCredits(movieId) {
     options
   );
 
+  return response.data;
+}
+
+export async function fetchSearchMovie(searchQuery) {
+  const response = await axios.get(
+    `${BASE_URL}search/movie?query=${searchQuery}`,
+    options
+  );
+  console.log(searchQuery, response.data);
   return response.data;
 }
