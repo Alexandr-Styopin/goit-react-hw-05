@@ -1,56 +1,32 @@
 import axios from "axios";
 
-const BASE_URL = "https://api.themoviedb.org/3/";
-const API_KEY = "aa1d2a2b8177ac3b5ad3698898d78d80";
-
-const options = {
-  headers: {
-    accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYTFkMmEyYjgxNzdhYzNiNWFkMzY5ODg5OGQ3OGQ4MCIsInN1YiI6IjYzYzFlZDdiYTU3NDNkMDBkZDU0ZjY4ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uZ3jqnM8aEDf1ToNkW3qByoBAt-8_SQzhZR032RZSSs",
-  },
+axios.defaults.baseURL = "https://api.themoviedb.org/3/";
+axios.defaults.headers.common = {
+  accept: "application/json",
+  Authorization:
+    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYTFkMmEyYjgxNzdhYzNiNWFkMzY5ODg5OGQ3OGQ4MCIsInN1YiI6IjYzYzFlZDdiYTU3NDNkMDBkZDU0ZjY4ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uZ3jqnM8aEDf1ToNkW3qByoBAt-8_SQzhZR032RZSSs",
 };
 
-export async function fetchMoviesTrending() {
-  const response = await axios.get(`${BASE_URL}trending/movie/day`, options);
+const API_KEY = "aa1d2a2b8177ac3b5ad3698898d78d80";
 
+const fetchData = async (url, params = {}) => {
+  const response = await axios.get(url, {
+    params: { api_key: API_KEY, ...params },
+  });
   return response.data;
-}
+};
 
-export async function fetchMovieDetails(movieId) {
-  const response = await axios.get(`${BASE_URL}movie/${movieId}`, options);
-  return response.data;
-}
+export const fetchMoviesTrending = () => fetchData("trending/movie/day");
 
-export async function fetchImages(params) {
-  const response = await axios.get(`${BASE_URL}configuration`, options);
+export const fetchMovieDetails = (movieId) => fetchData(`movie/${movieId}`);
 
-  return response.data;
-}
+export const fetchImages = () => fetchData("configuration");
 
-export async function fetchMovieReviews(movieId) {
-  const response = await axios.get(
-    `${BASE_URL}movie/${movieId}/reviews`,
-    options
-  );
+export const fetchMovieReviews = (movieId) =>
+  fetchData(`movie/${movieId}/reviews`);
 
-  return response.data;
-}
+export const fetchMovieCredits = (movieId) =>
+  fetchData(`movie/${movieId}/credits`);
 
-export async function fetchMovieCredits(movieId) {
-  const response = await axios.get(
-    `${BASE_URL}movie/${movieId}/credits`,
-    options
-  );
-
-  return response.data;
-}
-
-export async function fetchSearchMovie(searchQuery) {
-  const response = await axios.get(
-    `${BASE_URL}search/movie?query=${searchQuery}`,
-    options
-  );
-  console.log(searchQuery, response.data);
-  return response.data;
-}
+export const fetchSearchMovie = (searchQuery) =>
+  fetchData("search/movie", { query: searchQuery });
