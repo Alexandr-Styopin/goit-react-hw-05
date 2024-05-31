@@ -4,6 +4,8 @@ import MovieList from "../../components/MovieList/MovieList";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { fetchSearchMovie } from "../../fatchAPI/fetchMovies";
+import Loader from "../../components/Loader/Loader";
+import Error from "../../components/Error/Error";
 
 const SearchQuerySchema = Yup.object().shape({
   searchQuery: Yup.string()
@@ -14,6 +16,8 @@ const SearchQuerySchema = Yup.object().shape({
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams("");
   const searchQuery = searchParams.get("searchQuery") ?? "";
@@ -26,23 +30,23 @@ export default function MoviesPage() {
 
   useEffect(() => {
     const getSearchMovie = async () => {
-      const queruResult = await fetchSearchMovie(searchQuery);
-
-      setMovies(queruResult.results);
-
-      console.log(queruResult, " ok");
-
       try {
+        setError(false);
+        setLoading(true);
+        const queruResult = await fetchSearchMovie(searchQuery);
+        setMovies(queruResult.results);
       } catch (error) {
-        console.log(error);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     };
+
     getSearchMovie();
   }, [searchQuery]);
 
   return (
     <div>
-      MoviesPage
       <div>
         <Formik
           initialValues={{ searchQuery: "" }}
@@ -64,7 +68,7 @@ export default function MoviesPage() {
           )}
         </Formik>
       </div>
-      <MovieList movies={movies} />
+      {loading ? <Loader /> : error ? <Error /> : <MovieList movies={movies} />}
     </div>
   );
 }

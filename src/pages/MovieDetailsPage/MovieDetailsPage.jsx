@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, Suspense } from "react";
 import {
   useParams,
   NavLink,
@@ -6,13 +6,18 @@ import {
   Outlet,
   useLocation,
 } from "react-router-dom";
+import Error from "../../components/Error/Error";
+import Loader from "../../components/Loader/Loader";
 import { fetchMovieDetails } from "../../fatchAPI/fetchMovies/";
 
 import { getFullPosterUrl } from "../../utils/getFullPosterUrl";
 
 export default function MovieDetailsPage() {
-  const [movieDetails, setMovieDetails] = useState(null);
+  const [movieDetails, setMovieDetails] = useState([]);
   const [posterUrl, setPosterUrl] = useState("");
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const { movieId } = useParams();
   const location = useLocation();
@@ -22,6 +27,8 @@ export default function MovieDetailsPage() {
   useEffect(() => {
     const getMovieDetails = async () => {
       try {
+        setError(false);
+        setLoading(true);
         const movieDetailsData = await fetchMovieDetails(movieId);
         setMovieDetails(movieDetailsData);
 
@@ -30,36 +37,44 @@ export default function MovieDetailsPage() {
         );
         setPosterUrl(fullPosterUrl);
       } catch (error) {
-        console.error("Error fetching movie details:", error);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     };
 
     getMovieDetails();
   }, [movieId]);
 
-  if (!movieDetails) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
       <Link to={backLinkLocationRef.current}>back</Link>
-      <div>
-        <img src={posterUrl} alt="a" />
-        <h1>{movieDetails.title}</h1>
-        <p>{movieDetails.overview}</p>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Error />
+      ) : (
         <div>
-          <ul>
-            <li>
-              <NavLink to={`/movies/${movieId}/reviews`}>Reviews</NavLink>
-            </li>
-            <li>
-              <NavLink to={`/movies/${movieId}/cast`}>Cast</NavLink>
-            </li>
-          </ul>
+          <div>
+            <img src={posterUrl} alt="a" />
+            <h1>{movieDetails.title}</h1>
+            <p>{movieDetails.overview}</p>
+          </div>
+          <div>
+            <ul>
+              <li>
+                <NavLink to={`/movies/${movieId}/reviews`}>Reviews</NavLink>
+              </li>
+              <li>
+                <NavLink to={`/movies/${movieId}/cast`}>Cast</NavLink>
+              </li>
+            </ul>
+          </div>
+          <Suspense fallback={<Loader />}>
+            <Outlet />
+          </Suspense>
         </div>
-        <Outlet />
-      </div>
+      )}
     </div>
   );
 }
