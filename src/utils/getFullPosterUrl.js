@@ -1,4 +1,5 @@
 import { fetchImages } from "../fatchAPI/fetchMovies";
+import defaultImage from "../public/images/placeholder.png";
 
 export const getFullPosterUrl = async (posterPath) => {
   try {
@@ -8,12 +9,16 @@ export const getFullPosterUrl = async (posterPath) => {
     const posterSize = posterSizes[3];
 
     if (!baseUrl || !posterSize) {
-      return "Missing image base URL or poster size";
+      return defaultImage;
+    }
+
+    if (!posterPath) {
+      return defaultImage;
     }
 
     return `${baseUrl}${posterSize}${posterPath}`;
   } catch (error) {
     console.error("Error fetching image data:", error);
-    throw error;
+    return defaultImage;
   }
 };

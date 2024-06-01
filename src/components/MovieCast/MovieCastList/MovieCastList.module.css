@@ -1,0 +1,28 @@
+.castList {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.castMember {
+  flex: 0 0 calc(10% - 10px);
+  margin: 10px;
+  text-align: center;
+}
+
+.castMember img {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4%;
+}
+
+.castMemberName {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.castCharacterName {
+  font-style: italic;
+  font-size: 12px;
+}

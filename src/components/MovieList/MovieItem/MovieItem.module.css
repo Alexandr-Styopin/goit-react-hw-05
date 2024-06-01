@@ -1,0 +1,26 @@
+.movieItem {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+.movieItem:not(:last-child) {
+  margin-bottom: 10px;
+}
+.movieItem:hover {
+  transform: scale(1.05);
+}
+
+.movieLink {
+  display: block;
+  text-decoration: none;
+  color: #000;
+}
+
+.movieTitle {
+  font-size: 16px;
+  font-weight: bold;
+  padding-left: 10px;
+  text-align: left;
+}

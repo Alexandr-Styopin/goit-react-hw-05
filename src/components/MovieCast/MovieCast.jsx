@@ -6,8 +6,8 @@ import { getFullPosterUrl } from "../../utils/getFullPosterUrl";
 import Error from "../Error/Error";
 import Loader from "../Loader/Loader";
 
-import CastList from "./CastList/CastList";
-
+import CastList from "./MovieCastList/MovieCastList";
+import css from "../MovieCast/MovieCast.module.css";
 export default function MovieCast() {
   const [cast, setCast] = useState([]);
   const { movieId } = useParams();

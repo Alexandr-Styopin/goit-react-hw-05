@@ -9,8 +9,9 @@ import {
 import Error from "../../components/Error/Error";
 import Loader from "../../components/Loader/Loader";
 import { fetchMovieDetails } from "../../fatchAPI/fetchMovies/";
-
 import { getFullPosterUrl } from "../../utils/getFullPosterUrl";
+
+import css from "../MovieDetailsPage/MovieDetailsPage.module.css";
 
 export default function MovieDetailsPage() {
   const [movieDetails, setMovieDetails] = useState([]);
@@ -47,26 +48,34 @@ export default function MovieDetailsPage() {
   }, [movieId]);
 
   return (
-    <div>
-      <Link to={backLinkLocationRef.current}>back</Link>
+    <div className={css.container}>
+      <Link to={backLinkLocationRef.current} className={css.backLink}>
+        back
+      </Link>
       {loading ? (
         <Loader />
       ) : error ? (
         <Error />
       ) : (
         <div>
-          <div>
-            <img src={posterUrl} alt="a" />
-            <h1>{movieDetails.title}</h1>
-            <p>{movieDetails.overview}</p>
+          <div className={css.wrapper}>
+            <img
+              src={posterUrl}
+              alt={movieDetails.title}
+              className={css.poster}
+            />
+            <div>
+              <h1 className={css.title}>{movieDetails.title}</h1>
+              <p className={css.overview}>{movieDetails.overview}</p>
+            </div>
           </div>
-          <div>
+          <div className={css.navigation}>
             <ul>
               <li>
-                <NavLink to={`/movies/${movieId}/reviews`}>Reviews</NavLink>
+                <NavLink to={`/movies/${movieId}/cast`}>Cast</NavLink>
               </li>
               <li>
-                <NavLink to={`/movies/${movieId}/cast`}>Cast</NavLink>
+                <NavLink to={`/movies/${movieId}/reviews`}>Reviews</NavLink>
               </li>
             </ul>
           </div>

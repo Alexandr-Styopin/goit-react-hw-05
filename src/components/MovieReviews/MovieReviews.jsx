@@ -4,6 +4,7 @@ import { fetchMovieReviews } from "../../fatchAPI/fetchMovies";
 import Error from "../Error/Error";
 import Loader from "../Loader/Loader";
 import ReviewsList from "./ReviewsList/ReviewsList";
+import css from "../MovieReviews/MovieReviews.module.css";
 
 export default function MovieReviews() {
   const [reviews, setReviews] = useState([]);
@@ -30,13 +31,13 @@ export default function MovieReviews() {
   }, [movieId]);
 
   return (
-    <div>
+    <div className={css.reviewsContainer}>
       {loading ? (
         <Loader />
       ) : error ? (
         <Error />
       ) : isReviewListEmpty ? (
-        <p>Information is absent</p>
+        <p className={css.noReviews}>Information is absent</p>
       ) : (
         <ReviewsList reviews={reviews} />
       )}

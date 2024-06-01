@@ -1,8 +1,11 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
+import css from "../App/App.module.css";
+
 import MovieReviews from "../MovieReviews/MovieReviews";
 import MovieCast from "../MovieCast/MovieCast";
 import Loader from "../Loader/Loader";
+import Header from "../Header/Header";
 
 const HomePage = lazy(() => import("../../pages/HomePages/HomePage"));
 const MoviesPage = lazy(() => import("../../pages/MoviesPage/MoviesPage"));
@@ -17,10 +20,7 @@ function App() {
   return (
     <div>
       <Suspense fallback={<Loader />}>
-        <div>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/movies">Movies</NavLink>
-        </div>
+        <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />

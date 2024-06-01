@@ -1,11 +1,13 @@
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import MovieList from "../../components/MovieList/MovieList";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { fetchSearchMovie } from "../../fatchAPI/fetchMovies";
+
+import MovieList from "../../components/MovieList/MovieList";
 import Loader from "../../components/Loader/Loader";
 import Error from "../../components/Error/Error";
+import css from "../MoviesPage/MoviesPage.module.css";
 
 const SearchQuerySchema = Yup.object().shape({
   searchQuery: Yup.string()
@@ -47,23 +49,26 @@ export default function MoviesPage() {
 
   return (
     <div>
-      <div>
+      <div className={css.searchBar}>
         <Formik
           initialValues={{ searchQuery: "" }}
           validationSchema={SearchQuerySchema}
           onSubmit={handleSubmit}
         >
           {({ errors, touched }) => (
-            <Form>
+            <Form className={css.searchForm}>
               <Field
                 name="searchQuery"
                 type="text"
                 placeholder="Search movies"
+                className={css.searchInput}
               />
+              <button type="submit" className={css.searchButton}>
+                Search
+              </button>
               {errors.searchQuery && touched.searchQuery ? (
                 <div>{errors.searchQuery}</div>
               ) : null}
-              <button type="submit">Search</button>
             </Form>
           )}
         </Formik>

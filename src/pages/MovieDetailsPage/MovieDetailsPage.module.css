@@ -1,0 +1,62 @@
+.container {
+  margin: 20px;
+}
+.wrapper {
+  display: flex;
+  max-width: 600px;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  background-color: #333;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.backLink:hover {
+  background-color: #555;
+}
+
+.poster {
+  width: 200px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.overview {
+  margin-bottom: 20px;
+}
+
+.navigation {
+  margin-bottom: 20px;
+}
+
+.navigation li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.navigation li:last-child {
+  margin-right: 0;
+}
+
+.navigation a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.navigation a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,30 @@
+.reviewsContainer {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.reviewItem {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.reviewItem:last-child {
+  border-bottom: none;
+}
+
+.reviewAuthor {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.reviewContent {
+  font-size: 14px;
+}
+
+.noReviews {
+  padding: 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #888;
+}
