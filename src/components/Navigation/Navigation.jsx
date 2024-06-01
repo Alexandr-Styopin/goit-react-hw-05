@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import css from "../Header/Header.module.css";
+import css from "./Navigation.module.css";
 
-export default function Header() {
+export default function Navigation() {
   return (
-    <div className={css.header}>
+    <div className={css.navigation}>
       <div className={css.navLinks}>
         <NavLink
           to="/"

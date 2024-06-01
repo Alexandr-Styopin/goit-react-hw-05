@@ -5,7 +5,7 @@ import css from "../App/App.module.css";
 import MovieReviews from "../MovieReviews/MovieReviews";
 import MovieCast from "../MovieCast/MovieCast";
 import Loader from "../Loader/Loader";
-import Header from "../Header/Header";
+import Navigation from "../Navigation/Navigation";
 
 const HomePage = lazy(() => import("../../pages/HomePages/HomePage"));
 const MoviesPage = lazy(() => import("../../pages/MoviesPage/MoviesPage"));
@@ -20,7 +20,7 @@ function App() {
   return (
     <div>
       <Suspense fallback={<Loader />}>
-        <Header />
+        <Navigation />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />
